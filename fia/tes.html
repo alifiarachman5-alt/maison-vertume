@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Sekolah</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #dafad8, #fef9eb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 350px;
+      height: 500px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #9bd89c;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .message {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 75%;
+    }
+
+    .user {
+      background: #9bd89c;
+      color: white;
+      margin-left: auto;
+    }
+
+    .bot {
+      background: #f1f1f1;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    .chat-input input {
+      flex: 1;
+      border: none;
+      padding: 10px;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #9bd89c;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background:#9bd89c;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-header"> 🌸 Maison Vertumne</div>
+  
+  <div class="chat-box" id="chatBox"></div>
+
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Ketik pesan...">
+    <button onclick="sendMessage()">Kirim</button>
+  </div>
+</div>
+
+<script>
+  function addMessage(text, sender) {
+    const chatBox = document.getElementById("chatBox");
+    const message = document.createElement("div");
+    message.classList.add("message", sender);
+    message.innerText = text;
+    chatBox.appendChild(message);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function botResponse(input) {
+    input = input.toLowerCase();
+
+    if (input.includes("maison vertume")) {
+      return "Maison Vertumne adalah toko bunga artisan (fleuriste) terkenal yang berlokasi di jantung arondisemen ke-1 Paris, Prancis, dekat dengan area Louvre. Didirikan sejak tahun 1995, tempat ini dikenal karena gaya merangkai bunganya yang bebas, alami, dan puitis, yang terinspirasi oleh ritme musim";
+    } 
+    else if (input.includes("halo")) {
+      return "halo, ada yang bisa saya bantu?";
+    } 
+    else if (input.includes("produk")) {
+      return "produk yg tersedia mulai dari buqet bunga,bunga duka cita dll";
+    } 
+    else if (input.includes("jam")) {
+      return " Buka Senin - Jumat pukul 08.00 - 21.00 WIB, dan Sabtu - Minggu pukul 08.00 - 23.00 WIB";
+    } 
+    else if (input.includes("bunga")) {
+      return "yg kami jual di toko ini terdiri dari bunga asli dan artificial";
+    } 
+        else if (input.includes("harga")) {
+      return "untuk harganya bervariasi, silakan cek lansung di e-shop";
+
+    } else if (input.includes("pengiriman")) {
+      return "Kami mengirimkan karangan bunga kami ke: Paris (dalam batas kota): mulai dari €18 termasuk PPN Pinggiran kota bagian dalam & pinggiran kota terdekat: beberapa item tersedia, dengan harga yang disesuaikan setelah pembayaran.Anda juga dapat mengambil karangan bunga Anda langsung dari toko (layanan gratis)";
+
+    }    else if (input.includes("persiapan pengiriman")) {
+      return "Setiap buket membutuhkan waktu persiapan.Saat memesan, Anda memilih slot waktu yang diinginkan, tetapi:Kami mutlak harus menghubungi penerima untuk mengatur pengiriman.Tidak ada pengiriman pada hari Minggu.Tidak ada pengiriman pada hari Sabtu jika pesanan dilakukan setelah pukul 15.00 pada hari Jumat.Kami menyarankan untuk memberikan waktu setidaknya 24 jam untuk memastikan pengiriman berjalan lancar.";
+
+    }
+     else {
+      return "Maaf, saya belum mengerti pertanyaan itu.";
+    }
+  }
+
+  function sendMessage() {
+    const inputField = document.getElementById("userInput");
+    const text = inputField.value;
+
+    if (text.trim() === "") return;
+
+    addMessage(text, "user");
+
+    setTimeout(() => {
+      const response = botResponse(text);
+      addMessage(response, "bot");
+    }, 500);
+
+    inputField.value = "";
+  }
+
+  // Enter key support
+  document.getElementById("userInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  });
+</script>
+
+</body>
+</html>
